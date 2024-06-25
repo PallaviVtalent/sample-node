@@ -26,8 +26,8 @@ jobs:
     run: |
          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
          
-    -name: build and push docker image to registry
-     uses: docker/build-push-actions@v5
+    - name: build and push docker image to registry
+    uses: docker/build-push-actions@v5
      with:
           context: DockerFile/
           push: true
