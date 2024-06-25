@@ -1,0 +1,36 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: check repository
+      uses: actions/checkout@v4
+
+    - name: docker login
+    uses: actions/checkout@v3
+    with:
+        DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+
+    run: |
+         docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+         
+    -name: build and push docker image to registry
+     uses: docker/build-push-actions@v5
+     with:
+          context: DockerFile/
+          push: true
+          tags: pallavivtalent/node-app:tagname
+   
+ 
